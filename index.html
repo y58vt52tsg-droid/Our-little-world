@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Little World ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;1,400&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background: linear-gradient(180deg, #fce4ec 0%, #f8bbd0 50%, #f48fb1 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #4a4a4a;
+        }
+
+        .phone-container {
+            width: 100%;
+            max-width: 380px;
+            height: 100vh;
+            max-height: 780px;
+            background: linear-gradient(180deg, #fff0f3 0%, #ffdde1 100%);
+            border-radius: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            border: 8px solid #ffffff;
+        }
+
+        .screen {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            height: 100%;
+            padding: 30px 20px;
+            text-align: center;
+            animation: fadeIn 0.5s ease;
+            overflow-y: auto;
+        }
+
+        .screen.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.98); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .subtitle-small {
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #ad1457;
+            margin-top: 10px;
+        }
+
+        .title-serif {
+            font-family: 'Playfair Display', serif;
+            font-size: 26px;
+            color: #880e4f;
+            margin: 5px 0 10px 0;
+        }
+
+        /* --- 1. شاشة المكالمة --- */
+        .call-profile-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #fff;
+            box-shadow: 0 8px 20px rgba(216, 27, 96, 0.2);
+            margin-top: 20px;
+        }
+
+        .caller-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 30px;
+            color: #880e4f;
+            margin-top: 10px;
+        }
+
+        .call-status {
+            font-size: 13px;
+            color: #ad1457;
+        }
+
+        .call-actions {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .call-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 22px;
+            cursor: pointer;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+        }
+
+        .btn-decline { background-color: #ff5252; }
+        .btn-answer { background-color: #2ecc71; }
+
+        /* --- 2. شاشة الباسكود --- */
+        .lock-icon {
+            font-size: 28px;
+            margin-top: 10px;
+            color: #d81b60;
+        }
+
+        .dots-container {
+            display: flex;
+            gap: 12px;
+            margin: 10px 0 20px 0;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border: 1.5px solid #d81b60;
+            border-radius: 50%;
+            transition: 0.2s;
+        }
+
+        .dot.filled {
+            background-color: #d81b60;
+        }
+
+        .keypad {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            width: 80%;
+            margin-bottom: 10px;
+        }
+
+        .key {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+            color: #4a4a4a;
+            margin: 0 auto;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+        }
+
+        .key:active {
+            background: rgba(216, 27, 96, 0.2);
+        }
+
+        /* --- 3. شاشة الصور والرسالة --- */
+        .home-header {
+            text-align: left;
+            width: 100%;
+            padding: 5px;
+        }
+
+        .polaroid-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 100%;
+            margin: 10px 0;
+        }
+
+        .polaroid {
+            background: white;
+            padding: 8px 8px 20px 8px;
+            border-radius: 4px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            transform: rotate(-2deg);
+        }
+
+        .polaroid:nth-child(even) {
+            transform: rotate(2deg);
+        }
+
+        .polaroid img {
+            width: 100%;
+            height: 140px;
+            object-fit: cover;
+            border-radius: 2px;
+        }
+
+        .polaroid p {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 12px;
+            color: #666;
+            margin-top: 6px;
+        }
+
+        /* صندوق الرسالة اللي تحت الصور */
+        .love-message-card {
+            background: rgba(255, 255, 255, 0.85);
+            border-radius: 15px;
+            padding: 15px;
+            width: 100%;
+            margin-top: 10px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+
+        .love-message-card h3 {
+            color: #880e4f;
+            font-size: 16px;
+            margin-bottom: 8px;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .love-message-card p {
+            font-size: 13px;
+            color: #555;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+
+<div class="phone-container">
+
+    <!-- 1. شاشة المكالمة (الصورة الأولى مخصصة هنا باسم photo1.jpg) -->
+    <div class="screen active" id="screen-call">
+        <div>
+            <div class="subtitle-small">• INCOMING CALL</div>
+            <img src="photo1.jpg" class="call-profile-img" alt="Caller">
+            <div class="caller-name">Ahmed</div>
+            <div class="call-status">incoming love call</div>
+        </div>
+
+        <div style="margin: 15px 0;">
+            <p style="color: #d81b60; font-weight: 500;">رد بقولك! 📞</p>
+        </div>
+
+        <div class="call-actions">
+            <div class="call-btn btn-decline" onclick="goToLock()">✕</div>
+            <div class="call-btn btn-answer" onclick="answerCall()">📞</div>
+        </div>
+    </div>
+
+    <!-- 2. شاشة الباسكود (الرمز مظبوط على 2590) -->
+    <div class="screen" id="screen-lock">
+        <div>
+            <div class="lock-icon">♡</div>
+            <div class="subtitle-small">ONE LITTLE SECRET</div>
+            <div class="title-serif">Unlock my heart</div>
+            <p style="font-size: 11px; color: #888;">Enter our special 4-digit code</p>
+        </div>
+
+        <div class="dots-container">
+            <div class="dot" id="dot-0"></div>
+            <div class="dot" id="dot-1"></div>
+            <div class="dot" id="dot-2"></div>
+            <div class="dot" id="dot-3"></div>
+        </div>
+
+        <div class="keypad">
+            <div class="key" onclick="pressKey('1')">1</div>
+            <div class="key" onclick="pressKey('2')">2</div>
+            <div class="key" onclick="pressKey('3')">3</div>
+            <div class="key" onclick="pressKey('4')">4</div>
+            <div class="key" onclick="pressKey('5')">5</div>
+            <div class="key" onclick="pressKey('6')">6</div>
+            <div class="key" onclick="pressKey('7')">7</div>
+            <div class="key" onclick="pressKey('8')">8</div>
+            <div class="key" onclick="pressKey('9')">9</div>
+            <div class="key" style="font-size: 15px;">♡</div>
+            <div class="key" onclick="pressKey('0')">0</div>
+            <div class="key" onclick="deleteKey()" style="font-size: 15px;">⌫</div>
+        </div>
+        <div style="font-size: 10px; color: #aaa; letter-spacing: 1px;">A little code, a lot of love</div>
+    </div>
+
+    <!-- 3. شاشة الصور (الثلاث صور التانية) والرسالة الأخيرة -->
+    <div class="screen" id="screen-home">
+        <div class="home-header">
+            <div class="subtitle-small">YOU MADE IT ♡</div>
+            <div class="title-serif">Our Little World</div>
+        </div>
+
+        <div class="polaroid-container">
+            <!-- الصورة الثانية -->
+            <div class="polaroid">
+                <img src="photo2.jpg" alt="Moment 1">
+                <p>our moment</p>
+            </div>
+            <!-- الصورة الثالثة -->
+            <div class="polaroid">
+                <img src="photo3.jpg" alt="Moment 2">
+                <p>my favorite</p>
+            </div>
+            <!-- الصورة الرابعة -->
+            <div class="polaroid">
+                <img src="photo4.jpg" alt="Moment 3">
+                <p>always us</p>
+            </div>
+        </div>
+
+        <!-- 💌 الرسالة اللي بتظهر بعد الـ 3 صور (تقدري تغيري الكلام جوه هنا براحتك) -->
+        <div class="من اول يوم شوفتك فيه وانا عارفة اني هقع في حبك بس كنت بقاوح وبقول استحالة وهاخد حذري منك بس زي ما كنت حاسة معرفتش اعمل كدا ، معرفتش اعمل حاجة غير اني اكون معاك وجمبك 💗 انا بحبك اوي وبحب كل لحظة حلوة بينا واي حاجة بتحصل بتقربنا من بعض ، انا من غيرك كان زماني ضايعة وتايهة ومش عارفة ابقي كويسة ، من ساعة ما دخلت حياتي وانا هادية من جوايا وانا عمري ما كنت كدا عمري ما كنت متطمنة اصلا انت جيت غيرت كل دا من غير ما تحس خلتني اهدا واحسن نسخة من نفسي 💗 ربنا يخليك ليا ياحبيبي ويديمك نعمة في حياتي والنور اللي نورلي دنيتي كلها 💗👫 مش قادره استني اني اكون مراتك واني ابقي في بيتك وفي حضنك ياحبيبي والله وعد والله هخلي ايامك معايا كلها فرحة وراحة وسعادة وهخلي بيتنا مليان حب ودفا وامان مش هخليك تحتاج لغيري زي مانا عمري ما هحتاج لحد غيرك 💗💗 بحبك يا حبيبييييييي">
+            <h3>رسالة ليك وحدك ❤️</h3>
+            <p>
+                وجودك في حياتي بيخلي كل حاجة أحلى. حبيت أعمل المكان ده عشان يفضل يفتكرنا دايماً بكل ضحكة وكل لحظة حلوة جمعتنا سوا. بحبك جداً!
+            </p>
+        </div>
+    </div>
+
+</div>
+
+<audio id="audio-player" src="audio.mp3"></audio>
+
+<script>
+    // الباسكود المطلوب 2590
+    const CORRECT_CODE = "2590"; 
+    let currentInput = "";
+
+    function answerCall() {
+        const audio = document.getElementById('audio-player');
+        if(audio.src) { audio.play().catch(()=>{}); }
+        switchScreen('screen-call', 'screen-lock');
+    }
+
+    function goToLock() {
+        switchScreen('screen-call', 'screen-lock');
+    }
+
+    function pressKey(num) {
+        if (currentInput.length < 4) {
+            currentInput += num;
+            updateDots();
+            if (currentInput.length === 4) {
+                setTimeout(checkCode, 200);
+            }
+        }
+    }
+
+    function deleteKey() {
+        if (currentInput.length > 0) {
+            currentInput = currentInput.slice(0, -1);
+            updateDots();
+        }
+    }
+
+    function updateDots() {
+        for (let i = 0; i < 4; i++) {
+            const dot = document.getElementById(`dot-${i}`);
+            if (i < currentInput.length) {
+                dot.classList.add('filled');
+            } else {
+                dot.classList.remove('filled');
+            }
+        }
+    }
+
+    function checkCode() {
+        if (currentInput === CORRECT_CODE) {
+            switchScreen('screen-lock', 'screen-home');
+        } else {
+            alert("رمز غير صحيح! جرب الباسكود الصح ❤️");
+            currentInput = "";
+            updateDots();
+        }
+    }
+
+    function switchScreen(fromId, toId) {
+        document.getElementById(fromId).classList.remove('active');
+        document.getElementById(toId).classList.add('active');
+    }
+</script>
+
+</body>
+</html>
