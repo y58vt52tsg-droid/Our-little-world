@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Little World ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;1,400&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background: linear-gradient(180deg, #fce4ec 0%, #f8bbd0 50%, #f48fb1 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #4a4a4a;
+        }
+
+        .phone-container {
+            width: 100%;
+            max-width: 380px;
+            height: 100vh;
+            max-height: 780px;
+            background: linear-gradient(180deg, #fff0f3 0%, #ffdde1 100%);
+            border-radius: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            border: 8px solid #ffffff;
+        }
+
+        .screen {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            height: 100%;
+            padding: 40px 20px;
+            text-align: center;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .screen.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.98); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .subtitle-small {
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #ad1457;
+            margin-top: 15px;
+        }
+
+        .title-serif {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            color: #880e4f;
+            margin: 5px 0 15px 0;
+        }
+
+        /* --- 1. شاشة المكالمة الوهمية (أول شاشة) --- */
+        .call-profile-img {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #fff;
+            box-shadow: 0 8px 20px rgba(216, 27, 96, 0.2);
+            margin-top: 40px;
+        }
+
+        .caller-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            color: #880e4f;
+            margin-top: 15px;
+        }
+
+        .call-status {
+            font-size: 13px;
+            color: #ad1457;
+        }
+
+        .call-actions {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            margin-bottom: 30px;
+        }
+
+        .call-btn {
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+        }
+
+        .btn-decline { background-color: #ff5252; }
+        .btn-answer { background-color: #2ecc71; }
+
+        /* --- 2. شاشة الباسكود (تاني شاشة) --- */
+        .lock-icon {
+            font-size: 30px;
+            margin-top: 20px;
+            color: #d81b60;
+        }
+
+        .dots-container {
+            display: flex;
+            gap: 12px;
+            margin: 15px 0 30px 0;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border: 1.5px solid #d81b60;
+            border-radius: 50%;
+            transition: 0.2s;
+        }
+
+        .dot.filled {
+            background-color: #d81b60;
+        }
+
+        .keypad {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            width: 80%;
+            margin-bottom: 20px;
+        }
+
+        .key {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 22px;
+            color: #4a4a4a;
+            margin: 0 auto;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+            transition: 0.1s;
+        }
+
+        .key:active {
+            background: rgba(216, 27, 96, 0.2);
+        }
+
+        /* --- 3. شاشة الصور والمحتوى الرئيسي (الشاشة الأخيرة) --- */
+        .home-header {
+            text-align: left;
+            width: 100%;
+            padding: 10px 10px 0 10px;
+        }
+
+        .card-reminder {
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 15px;
+            padding: 12px 15px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 15px 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+        }
+
+        .polaroid-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 100%;
+            overflow-y: auto;
+            padding: 5px;
+        }
+
+        .polaroid {
+            background: white;
+            padding: 10px 10px 25px 10px;
+            border-radius: 4px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            transform: rotate(-2deg);
+        }
+
+        .polaroid:nth-child(even) {
+            transform: rotate(2deg);
+        }
+
+        .polaroid img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 2px;
+        }
+
+        .polaroid p {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 13px;
+            color: #666;
+            margin-top: 8px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="phone-container">
+
+    <!-- 1. شاشة المكالمة الوهمية (تبدأ أولاً) -->
+    <div class="screen active" id="screen-call">
+        <div>
+            <div class="subtitle-small">• INCOMING CALL</div>
+            <!-- غيري صورة الشخص هنا -->
+            <img src="photo1.jpg" class="call-profile-img" alt="Ahmed">
+            <!-- اكتب اساميكم هنا -->
+            <div class="caller-name">Ahmed</div>
+            <div class="call-status">incoming love call</div>
+        </div>
+
+        <div style="margin: 20px 0;">
+            <p style="color: #d81b60; font-weight: 500;">ردي بقولك! 📞</p>
+        </div>
+
+        <div class="call-actions">
+            <div class="call-btn btn-decline" onclick="goToLock()">✕</div>
+            <div class="call-btn btn-answer" onclick="answerCall()">📞</div>
+        </div>
+    </div>
+
+    <!-- 2. شاشة الباسكود (تظهر بعد المكالمة) -->
+    <div class="screen" id="screen-lock">
+        <div>
+            <div class="lock-icon">♡</div>
+            <div class="subtitle-small">ONE LITTLE SECRET</div>
+            <div class="title-serif">Unlock my heart</div>
+            <p style="font-size: 12px; color: #888;">Enter our special 4-digit code</p>
+        </div>
+
+        <div class="dots-container">
+            <div class="dot" id="dot-0"></div>
+            <div class="dot" id="dot-1"></div>
+            <div class="dot" id="dot-2"></div>
+            <div class="dot" id="dot-3"></div>
+        </div>
+
+        <div class="keypad">
+            <div class="key" onclick="pressKey('1')">1</div>
+            <div class="key" onclick="pressKey('2')">2</div>
+            <div class="key" onclick="pressKey('3')">3</div>
+            <div class="key" onclick="pressKey('4')">4</div>
+            <div class="key" onclick="pressKey('5')">5</div>
+            <div class="key" onclick="pressKey('6')">6</div>
+            <div class="key" onclick="pressKey('7')">7</div>
+            <div class="key" onclick="pressKey('8')">8</div>
+            <div class="key" onclick="pressKey('9')">9</div>
+            <div class="key" style="font-size: 16px;">♡</div>
+            <div class="key" onclick="pressKey('0')">0</div>
+            <div class="key" onclick="deleteKey()" style="font-size: 16px;">⌫</div>
+        </div>
+        <div style="font-size: 10px; color: #aaa; letter-spacing: 1px;">A little code, a lot of love</div>
+    </div>
+
+    <!-- 3. شاشة الصور والمحتوى الرئيسي (بعد إدخال الكود الصحيح) -->
+    <div class="screen" id="screen-home">
+        <div class="home-header">
+            <div class="subtitle-small">YOU MADE IT ♡</div>
+            <div class="title-serif" style="font-size: 32px;">Hey, beautiful.</div>
+            <p style="font-size: 12px; color: #777;">I saved a little piece of my heart for you.</p>
+        </div>
+
+        <div class="card-reminder">
+            <div style="background: #f8bbd0; padding: 8px; border-radius: 10px; color: #d81b60;">♡</div>
+            <div style="text-align: left;">
+                <div style="font-size: 9px; color: #999; letter-spacing: 1px;">JUST A REMINDER</div>
+                <div style="font-size: 12px; font-weight: 500; color: #444;">You are loved. So much.</div>
+            </div>
+        </div>
+
+        <div class="polaroid-container">
+            <!-- غيّري أسماء الصور والكلام تحت كل صورة -->
+            <div class="polaroid">
+                <img src="photo1.jpg" alt="Moment 1">
+                <p>our moment</p>
+            </div>
+            <div class="polaroid">
+                <img src="photo2.jpg" alt="Moment 2">
+                <p>my favorite</p>
+            </div>
+            <div class="polaroid">
+                <img src="photo3.jpg" alt="Moment 3">
+                <p>always us</p>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- صوت للمكالمة (اختياري) -->
+<audio id="audio-player" src="audio.mp3"></audio>
+
+<script>
+    // عيني الباسكود المكون من 4 أرقام هنا
+    const CORRECT_CODE = "1234"; 
+    let currentInput = "";
+
+    function answerCall() {
+        const audio = document.getElementById('audio-player');
+        if(audio.src) { audio.play().catch(()=>{}); }
+        switchScreen('screen-call', 'screen-lock');
+    }
+
+    function goToLock() {
+        switchScreen('screen-call', 'screen-lock');
+    }
+
+    function pressKey(num) {
+        if (currentInput.length < 4) {
+            currentInput += num;
+            updateDots();
+            if (currentInput.length === 4) {
+                setTimeout(checkCode, 200);
+            }
+        }
+    }
+
+    function deleteKey() {
+        if (currentInput.length > 0) {
+            currentInput = currentInput.slice(0, -1);
+            updateDots();
+        }
+    }
+
+    function updateDots() {
+        for (let i = 0; i < 4; i++) {
+            const dot = document.getElementById(`dot-${i}`);
+            if (i < currentInput.length) {
+                dot.classList.add('filled');
+            } else {
+                dot.classList.remove('filled');
+            }
+        }
+    }
+
+    function checkCode() {
+        if (currentInput === CORRECT_CODE) {
+            switchScreen('screen-lock', 'screen-home');
+        } else {
+            alert("رمز غير صحيح! جرب تاريخ مميز بيجمعنا ❤️");
+            currentInput = "";
+            updateDots();
+        }
+    }
+
+    function switchScreen(fromId, toId) {
+        document.getElementById(fromId).classList.remove('active');
+        document.getElementById(toId).classList.add('active');
+    }
+</script>
+
+</body>
+</html>
